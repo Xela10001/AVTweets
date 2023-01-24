@@ -84,11 +84,14 @@ def handle_tweets(user_me):
         print(f"{bcolors.FAIL}Likes{bcolors.ENDC}: {tweetLikes}")
         print(f"{bcolors.HEADER}====={bcolors.ENDC}")
         printCategorias(categorias)
-        categoria = input(f"\n{bcolors.BOLD}Como categoriza este tweet?{bcolors.ENDC}\n").lower()
-        if categoria not in categorias:
-            categorias.append(categoria)
+        categoriaInput = input(f"\n{bcolors.BOLD}Como categoriza este tweet? (s to SKIP TWEET){bcolors.ENDC}\n").lower()
+        if categoriaInput == 's':
+            continue
+        for categoria in categoriaInput.split(','):
+            if categoria not in categorias:
+                categorias.append(categoria)
         cleansedText = remove_emoji(tweetText.replace("\n", ' '))
-        tweetsFile.write(f"{tweetID},{cleansedText},{tweetLikes},{categoria}\n")
+        tweetsFile.write(f"{tweetID},{cleansedText},{tweetLikes},{categoriaInput.replace(',', '|')}\n")
 
     writeCategorias(categorias)
 
@@ -133,11 +136,11 @@ while True:
     user_me = requests.request("GET", f"https://api.twitter.com/2/users/{andreVenturaID}/tweets/?tweet.fields=public_metrics&max_results=5{fetch_token}",
                                headers={'Authorization': 'Bearer {}'.format(access)}).json()
 
-
     handle_tweets(user_me)
 
     response = input("Continuar? (y/n)\n")
-    if response != 'y' and response != 'yes' and response != 's' and response != 'sim':
+    yes = ['y', 'yes', 's', 'sim']
+    if response not in yes:
         break
 
 
