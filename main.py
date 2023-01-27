@@ -125,6 +125,7 @@ full_url = input("Paste in the full URL after you authorized your App: ")
 access_token2 = oauth2_user_handler.fetch_token(full_url)
 access = access_token2['access_token']
 
+numberOfTweets = 20
 
 
 while True:
@@ -133,7 +134,7 @@ while True:
     fetchtokenfile.close()
     if fetch_token:
         fetch_token = "&pagination_token=" + fetch_token
-    user_me = requests.request("GET", f"https://api.twitter.com/2/users/{andreVenturaID}/tweets/?tweet.fields=public_metrics&max_results=5{fetch_token}",
+    user_me = requests.request("GET", f"https://api.twitter.com/2/users/{andreVenturaID}/tweets/?tweet.fields=public_metrics&max_results={numberOfTweets}{fetch_token}",
                                headers={'Authorization': 'Bearer {}'.format(access)}).json()
 
     handle_tweets(user_me)
