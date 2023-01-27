@@ -6,10 +6,10 @@ colorCodes = {
 	'religiao': 'yellow',
 	'ataque': 'red',
 	'shitpost': 'darkgoldenrod',
-	'racismo': 'black',
+	'cm': 'black',
 	'corrupcao': 'indianred',
 	'defesa': 'deepskyblue',
-	'racismo leve': 'slategray',
+	'cml': 'slategray',
 	'anti-lgbt': 'pink',
 	'pro-policia': 'darkblue'
 }
@@ -110,14 +110,14 @@ def createBarPlot(categoryAverage:tuple, categoryTotal:tuple, categoryTotalSorte
 	keys.pop(i)
 	values.pop(i)
 	colors = [colorCodes.setdefault(a.split('\n')[0], 'maroon') for a in keys]
-	showGraph(keys, values, colors, "Tweets do André Ventura\nOrdenados por nº total de tweets", yLim=yLim)
+	showGraph(keys, values, colors, "Tweets do André Ventura\nOrdenados por nº total de tweets\n", yLim=yLim)
 
 	keys, values = categoryTotalSorted
 	i = findBrasil(keys)
 	keys.pop(i)
 	values.pop(i)
 	colors = [colorCodes.setdefault(a.split('\n')[0], 'maroon') for a in keys]
-	showGraph(keys, values, colors, "Nº de tweets do André Ventura\nOrdenados por nº total de tweets", yLim=100, yLabel="Nº de Tweets", xlabel="Categoria + Média de likes")
+	showGraph(keys, values, colors, "Nº de tweets do André Ventura\nOrdenados por nº total de tweets\n", yLim=100, yLabel="Nº de Tweets", xlabel="Categoria + Média de likes")
 
 
 tweets = getTweetsFromCSV("tweets.txt")
